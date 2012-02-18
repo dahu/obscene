@@ -1,0 +1,18 @@
+Obscene
+-------
+
+A subscene subtitle search and filter tool written in Ruby.
+
+Usage:
+
+  obscene <title> <year> [<series episode>] [<language>]
+
+Defaults to English language subtitles.
+
+Generates list of matching subtitles in an HTML file constructed from the
+search terms in the current directory.
+
+Requires:
+
+* mechanize
+* markaby
