@@ -25,7 +25,7 @@ agent.get('http://subscene.com/filmsearch.aspx?q=' + film) do |page|
     next unless text =~ %r{#{language}}i
     next if text =~ /blu-?ray/i
     next unless text =~ %r{#{seep}}i if seep != ''
-    links << ["http://subscene.com#{link.href}", link.text]
+    links << ["http://subscene.com#{link.href}", link.text.sub(/^\s*#{language}\s*/i, '')]
   end
 end
 
@@ -33,11 +33,33 @@ mab = Markaby::Builder.new
 mab.html do
   head do
     title title
+    style :type => "text/css" do
+      %[
+        body {
+          font: 11px/120% Verdana, sans-serif;
+          background: #384310;
+          color: white;
+          }
+        h2 {
+          line-height: 2em;
+          background: #596B00;
+        }
+        ul {
+          background: #232609;
+        }
+        a:link {
+        color: white;
+        }
+        a:hover {
+        color: yellow;
+        }
+      ]
+    end
   end
   body do
     h2 title
     ul do
-      links.each do |link|
+      links.sort.each do |link|
         li { a link[1], :href => link[0] }
       end
     end
